@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Comm100_LiveChat::livechat" title="Comm100 Live Chat" sortOrder="1">
+                    <resource id="Comm100_LiveChat::activate" title="Activate Integration" sortOrder="1"/>
+                    <resource id="Comm100_LiveChat::connect" title="Connect Agent" sortOrder="2" />
+                    <resource id="Comm100_LiveChat::getWebsiteStores" title="Get Website With Stores" sortOrder="3" />
+                    <resource id="Comm100_LiveChat::setStoresAndCampaigns" title="Set Store and Campaigns" sortOrder="4" />
+                    <resource id="Comm100_LiveChat::health" title="Check Health" sortOrder="5" />
+                    <resource id="Comm100_LiveChat::disconnect" title="Disconnect Agent" sortOrder="6" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

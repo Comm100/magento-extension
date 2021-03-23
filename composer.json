@@ -1,0 +1,27 @@
+{
+	"name": "comm100/live-chat",
+	"type": "magento2-module",
+	"description": "Create comm 100 live chat and integration",
+	"require": {
+		"php": "~7.0.13|~7.1.0|~7.2.0|~7.3.0|~7.4.0"
+	},
+	"version": "1.0.0",
+	"license": [
+		"OSL-3.0",
+		"AFL-3.0"
+	],
+	"autoload": {
+		"files": [
+			"registration.php"
+		],
+		"psr-4": {
+			"Comm100\\LiveChat\\": ""
+		}
+	},
+	"repositories":{
+        "0": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    }
+}

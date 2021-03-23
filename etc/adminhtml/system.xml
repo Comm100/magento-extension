@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="Comm100_LiveChat" translate="label" sortOrder="200">
+			<label>Comm100 Live Chat</label>
+		</tab>
+		<section id="lc_block_config" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Settings</label>
+			<tab>Comm100_LiveChat</tab>
+			<resource>Comm100_LiveChat::mymodule</resource>
+			<frontend_model>Comm100\LiveChat\Block\System\Config\ChatButtonConfig</frontend_model>
+		</section>
+	</system>
+</config>

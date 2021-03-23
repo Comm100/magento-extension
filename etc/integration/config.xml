@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<integrations>
+    <integration name="Comm100 Live Chat">
+        <email>support@comm100.com</email>
+        <endpoint_url>https://portal1.comm100.io/magentoapp/V1/endpoint</endpoint_url>
+        <identity_link_url>https://portal1.comm100.io/magentoapp/V1/identity</identity_link_url>
+    </integration>
+</integrations>

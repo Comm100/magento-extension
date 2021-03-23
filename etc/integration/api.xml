@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<integrations>
+    <integration name="Comm100 Live Chat">
+        <resources>
+            <!-- To grant permission to Magento_Log::online, its parent Magento_Customer::customer needs to be declared as well-->
+            <resource name="Magento_Customer::customer" />
+            <resource name="Magento_Log::online" />
+
+            <!-- For getting the orders -->
+            <resource name="Magento_Sales::sales" />
+            <resource name="Magento_Sales::sales_order" />
+            <resource name="Magento_Sales::actions_view" />
+
+            <!-- For getting the products and categories -->
+            <resource name="Magento_Catalog::catalog" />
+            <resource name="Magento_Catalog::catalog_inventory" />
+            <resource name="Magento_Catalog::products" />
+            <resource name="Magento_Catalog::categories" />
+            <resource name="Magento_Catalog::config_catalog" />
+            <resource name="Magento_CatalogSearch::config_catalog_search" />
+
+            <!-- For getting the cart -->
+            <resource name="Magento_Cart::cart" />
+            <resource name="Magento_Cart::manage" />
+
+            <!-- For getting the customer -->
+            <resource name="Magento_Customer::customer" />
+            <resource name="Magento_Customer::online" />
+            <resource name="Magento_Customer::group" />
+
+
+            <!-- For getting stores -->
+            <resource name="Magento_Backend::admin" />
+            <resource name="Magento_Backend::store" />
+            <resource name="Magento_Backend::myaccount" />
+            <resource name="Magento_Backend::stores" />
+            <resource name="Magento_Backend::stores_settings" />
+            <resource name="Magento_Backend::global_search" />
+
+            <!-- For fetching the custom apis -->
+            <resource name="Magento_Backend::admin"/>
+            <resource name="Comm100_LiveChat::livechat"/>
+            <resource name="Comm100_LiveChat::activate"/>
+            <resource name="Comm100_LiveChat::connect" />
+            <resource name="Comm100_LiveChat::getWebsiteStores"/>
+            <resource name="Comm100_LiveChat::setStoresAndCampaigns" />
+            <resource name="Comm100_LiveChat::health"/>
+            <resource name="Comm100_LiveChat::disconnect"/>
+        </resources>
+    </integration>
+</integrations>

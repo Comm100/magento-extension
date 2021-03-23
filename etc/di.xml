@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Comm100\LiveChat\Api\CustomApiInterface" type="Comm100\LiveChat\Model\Api\CustomApi" />
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="add_custom_cart_data_attributes_plugin" type="Comm100\LiveChat\Plugin\CustomerDataCartSection" sortOrder="11" disabled="false" />
+    </type>
+</config>

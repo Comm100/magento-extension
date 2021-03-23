@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <!-- Route called when the activation is done in the Magento Apo and the access token generated for the Magento Extension is generated. At the same time other data like customerKey, customerSecter, oAuthVerifier  -->
+    <route method="POST" url="/V1/comm100/activate/">
+        <service class="Comm100\LiveChat\Api\CustomApiInterface" method="activate" />
+        <resources>
+            <resource ref="Comm100_LiveChat::activate" />
+        </resources>
+    </route>
+
+    <!-- Route post connect -->
+    <route method="POST" url="/V1/comm100/connect/">
+        <service class="Comm100\LiveChat\Api\CustomApiInterface" method="connect" />
+        <resources>
+            <resource ref="Comm100_LiveChat::connect" />
+        </resources>
+    </route>
+
+    <!-- Route get all websites with stores-->
+    <route method="GET" url="/V1/comm100/website/stores">
+        <service class="Comm100\LiveChat\Api\CustomApiInterface" method="getWebsiteStores" />
+        <resources>
+            <resource ref="Comm100_LiveChat::getWebsiteStores" />
+        </resources>
+    </route>
+
+    <!-- Route change campaign-->
+    <route method="POST" url="/V1/comm100/store/campaigns">
+        <service class="Comm100\LiveChat\Api\CustomApiInterface" method="setStoresAndCampaigns" />
+        <resources>
+            <resource ref="Comm100_LiveChat::setStoresAndCampaigns" />
+        </resources>
+    </route>
+
+    <!-- Route health  -->
+    <route method="GET" url="/V1/comm100/health/">
+        <service class="Comm100\LiveChat\Api\CustomApiInterface" method="health" />
+        <resources>
+            <resource ref="Comm100_LiveChat::health" />
+        </resources>
+    </route>
+
+    <!-- Route disconnect  -->
+    <route method="GET" url="/V1/comm100/disconnect/">
+        <service class="Comm100\LiveChat\Api\CustomApiInterface" method="disconnect" />
+        <resources>
+            <resource ref="Comm100_LiveChat::disconnect" />
+        </resources>
+    </route>
+</routes>
