@@ -1,7 +1,7 @@
 {
 	"name": "comm100/live-chat",
 	"type": "magento2-module",
-	"description": "Create comm 100 live chat and integration",
+	"description": "Comm100 Live Chat lets you chat with your Magento store visitors by adding a live chat widget to your Magento Store website",
 	"require": {
 		"php": "~7.0.13|~7.1.0|~7.2.0|~7.3.0|~7.4.0"
 	},
