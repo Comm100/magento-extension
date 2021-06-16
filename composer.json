@@ -13,7 +13,7 @@
 		"magento/framework": "100.*|101.*|102.*|103.*",
 		"magento/module-integration": "100.*|101.*|102.*|103.*"
 	},
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"license": [
 		"OSL-3.0",
 		"AFL-3.0"

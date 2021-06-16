@@ -39,8 +39,6 @@ class Uninstall implements UninstallInterface
         $installer = $setup;
         $installer->startSetup();
 
-try {
-
         $installer
             ->getConnection()
             ->dropTable($installer->getTable(Constants::CHILD_TABLE_NAME));
@@ -52,12 +50,6 @@ try {
             ->getConnection()
             ->delete('interation', 'name = ' + Constants::INTEGRATION_NAME);
 
-}
-
-//catch exception
-catch(Exception $e) {
-  echo 'Message: ' .$e->getMessage();
-}
         $this->uninstallFromMagentoApp();
         $installer->endSetup();
     }
