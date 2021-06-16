@@ -1,0 +1,263 @@
+<!-- Get and check site and campaign id. -->
+<?php
+
+$chatBoxData = $block->getChatBoxData();
+$siteId = null;
+$campaignId = null;
+
+if ($chatBoxData) {
+  $siteId = $chatBoxData['siteId'];
+  $campaignId = $chatBoxData['campaignId'];
+}
+$isDev = false;
+$isStage = true;
+?>
+
+<?php if ($isDev || ($siteId != null && $campaignId != null)) : ?>
+  <!-- ?php phpinfo() ? -->
+
+  <!-- Set custom variables -->
+  <span id='comm100_magento' style="display:none"><?= $block->getCustomVariables() ?></span>
+
+  <!--Begin Comm100 Live Chat Code-->
+
+  <?php if ($isDev) : ?>
+    <?php
+    $siteId = 1000007;
+    $campaignId = '23';
+    // Dev urls not working from outside.
+    $url1 = 'https://vue.comm100.com/livechat.ashx?siteId=';
+    $url2 = 'https://vue.comm100.com/livechat.ashx?siteId=';
+    ?>
+    <div id="comm100-button-<?= $campaignId ?>"></div>
+    <script type="text/javascript">
+      var Comm100API = Comm100API || {};
+      (function(t) {
+        function e(e) {
+          var a = document.createElement("script"),
+            c = document.getElementsByTagName("script")[0];
+          a.type = "text/javascript", a.async = !0, a.src = e + t.site_id, c.parentNode.insertBefore(a, c)
+        }
+        t.chat_buttons = t.chat_buttons || [], t.chat_buttons.push({
+            code_plan: <?= is_numeric($campaignId) ? $campaignId : "'" . $campaignId . "'" ?>,
+            div_id: "comm100-button-<?= $campaignId; ?>"
+          }), t.site_id = <?= $siteId ?>,
+          t.main_code_plan = <?= is_numeric($campaignId) ? $campaignId : "'" . $campaignId . "'" ?>,
+          e("<?= $url1 ?>"), setTimeout(function() {
+            t.loaded || e("<?= $url2 ?>")
+          }, 5e3)
+      })(Comm100API || {});
+    </script>
+  <?php else : ?>
+    <?php
+ 
+    $url1 = '';
+    $url2 = '';
+    if ($isStage) {
+      $url1 = 'https://vue.comm100.com/livechat.ashx?siteId=';
+      $url2 = 'https://vue.comm100.com/livechat.ashx?siteId=';
+    } else {
+      $url1 = 'https://vue.comm100.com/livechat.ashx?siteId=';
+      $url2 = 'https://vue.comm100.com/livechat.ashx?siteId=';
+    }
+    ?>
+    <!-- Live version -->
+    <div id="comm100-button-<?= $campaignId; ?>"></div>
+    <script type="text/javascript">
+      var Comm100API = Comm100API || {};
+      (function(t) {
+        function e(e) {
+          var a = document.createElement("script"),
+            c = document.getElementsByTagName("script")[0];
+          a.type = "text/javascript", a.async = !0, a.src = e + t.site_id, c.parentNode.insertBefore(a, c)
+        }
+        t.chat_buttons = t.chat_buttons || [], t.chat_buttons.push({
+            code_plan: <?= is_numeric($campaignId) ? $campaignId : "'" . $campaignId . "'" ?>,
+            div_id: "comm100-button-<?= $campaignId; ?>"
+          }), t.site_id =  <?= $siteId ?>,
+          t.main_code_plan = <?= is_numeric($campaignId) ? $campaignId : "'" . $campaignId . "'"; ?>,
+          e("<?= $url1 ?>"), setTimeout(function() {
+            t.loaded || e("<?= $url2 ?>")
+          }, 5e3)
+      })(Comm100API || {});
+    </script>
+  <?php endif; ?>
+
+  <!--End Comm100 Live Chat Code-->
+
+  <!-- Save Visitor -->
+  <script type="text/javascript">
+    var magentoAppUrl = '<?= $block->getSaveVisitorUrl() ?>';
+
+    function callSaveVisitorApi(sdata, callback) {
+      var xmlhttp;
+      if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+      } else { // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var responseObj = JSON.parse(this.responseText);
+          if (responseObj.serverResult.result === true) {
+            callback(responseObj);
+          }
+        }
+      };
+      xmlhttp.open("POST", magentoAppUrl, true);
+    //  xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+     xmlhttp.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+      xmlhttp.send(JSON.stringify(sdata));
+    }
+
+    function getCookie(name) {
+
+      if (document.cookie.length > 0) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+          return unescape(arr[2]);
+        else
+          return '';
+      }
+      return '';
+    }
+
+    function setCookie(name, value) {
+      var exp = new Date();
+      exp.setTime(exp.getTime() + 1 * 60 * 60 * 1000);
+      document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
+    }
+
+    var magentoCustomerId = <?= $block->getCustomerId() ?>;
+    var magentoCartId = '<?= $block->getMagentoCartId() ?>';
+    var customerToken = <?= $block->getCustomerToken() ?>;
+
+    function SaveComm100Visitor() {
+       
+       
+      if (magentoAppUrl === null) {
+        return;
+      }
+
+      var magentoComm100VisitorGuid = null;
+      if (document.getElementById('comm100-container') !== null) {
+        var comm100State = document.getElementById('comm100-container').firstChild._component.props.store.getState();
+        if (comm100State && comm100State.page && comm100State.page.visitor &&
+          comm100State.page.visitor.guid) {
+          magentoComm100VisitorGuid = comm100State.page.visitor.guid;
+        }
+      }
+
+      if (!magentoComm100VisitorGuid) {
+        return;
+      }
+
+      var saveData = {
+        magentoVisitor: {
+          siteId: comm100State.page.siteId,
+          visitorGuid: magentoComm100VisitorGuid,
+          codeplanId: comm100State.page.campaignId,
+          domain: '<?= $block->getBaseUrl() ?>',
+          storeCode: '<?= $block->getStoreCode() ?>',
+          adminUrl: '<?= $block->getAdminUrl() ?>',
+          customerId: magentoCustomerId,
+          email: '<?= $block->getCustomerEmail() ?>',
+          customerToken: customerToken,
+          cartId: magentoCartId,
+          orderAddUrl: <?= $block->getOrderAddUrl() ?>,
+        },
+      };
+
+      var magentoVisitor = saveData.magentoVisitor;
+      if (magentoComm100VisitorGuid !== getCookie('magentoVisitorGuid')) {
+        magentoVisitor['saveType'] = 'savevisitor';
+        callSaveVisitorApi(saveData, function(responseJson) {
+         
+          setCookie('magentoVisitorGuid', magentoComm100VisitorGuid);
+        });
+      }
+
+      if (magentoCustomerId != null && magentoCustomerId !== 0 && magentoCustomerId.toString() !== getCookie('magentoCustomerId')) {
+        magentoVisitor['saveType'] = 'savevisitorcustomer';
+        callSaveVisitorApi(saveData, function(responseJson) {
+          
+          setCookie('magentoCustomerId', magentoCustomerId);
+        });
+      }
+
+      if (magentoCartId !== null && magentoCartId !== '' && magentoCartId !== getCookie('magentoCartId')) {
+        magentoVisitor['saveType'] = 'savevisitorcart';
+        callSaveVisitorApi(saveData, function(responseJson) {
+           
+          setCookie('magentoCartId', magentoCartId);
+        });
+      }
+    }
+
+    setInterval(SaveComm100Visitor, 5000);
+
+    // Cart event.
+    require(['jquery',
+      'Magento_Customer/js/customer-data',
+      // 'Magento_Checkout/js/model/quote',
+    ], function($, customerData
+      // , quoteData
+    ) {
+      console.log('xxx Customer Data', customerData);
+      var cart = customerData.get('cart');
+      console.log("xxx custom section", customerData.get('customSection')());
+      cart.subscribe(function() {
+        var cartObj = cart();
+        if (cartObj) {
+          magentoCartId = cartObj.cartId ? '<?= $block->getBaseUrl() . "@" ?>' +
+            cartObj.cartId : '';
+          var cid = parseInt(cartObj.magentoCustomerId);
+          magentoCustomerId = isNaN(cid) ? 0 : cid;
+        }
+      });
+
+      // Customer related data
+      var getCustomerInfo = function() {
+        var customer = customerData.get('customer');
+
+        return customer();
+      };
+
+      var isLoggedIn = function(customerInfo) {
+        customerInfo = customerInfo || getCustomerInfo();
+        console.log('xxx magento customer id', cart().data_id);
+        return customerInfo && customerInfo.firstname;
+      };
+
+      return function() {
+        var deferred = $.Deferred();
+        var customerInfo = getCustomerInfo();
+
+        if (customerInfo && customerInfo.data_id) {
+          deferred.resolve(isLoggedIn(customerInfo));
+        } else {
+          customerData.reload(['customer'], false)
+            .done(function() {
+              deferred.resolve(isLoggedIn());
+            })
+            .fail(function() {
+              deferred.reject();
+            });
+        }
+
+        return deferred;
+      };
+    });
+
+    // Set the custom variable in the comm100 javascript api on chat start.
+   /*
+    Comm100API.onReady = function(chatId) {
+      const customVariables = [{
+        name: 'MagentoVisitor',
+        value: 'Yes'
+      }];
+      Comm100API.set('livechat.customVariables', customVariables);
+    };
+    */
+  </script>
+<?php endif; ?>

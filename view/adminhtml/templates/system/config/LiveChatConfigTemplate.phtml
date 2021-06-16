@@ -1,0 +1,61 @@
+<style>
+    .page-content>.page-columns {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .page-content>.page-columns>.main-col {
+        flex: 1;
+    }
+
+    .page-content>.page-columns>.main-col>.admin__scope-old {
+        height: 100%;
+    }
+
+    .page-content>.page-columns>.main-col>.admin__scope-old>form {
+        height: 100%;
+    }
+
+    .page-content>.page-columns>.main-col>.admin__scope-old>form>.accordion {
+        height: 100%;
+    }
+
+    /* Hide the Save Button */
+    .page-actions-buttons {
+        display: none;
+    }
+</style>
+
+<div id="c100SettingsMain" class=" c100SettingsMain">
+    <iframe id='iframeComm100' title="Comm100 Live Chat" src="<?= $block->getDefaultPage() ?>" context="Main" class="comm100Iframe" name="comm100-iframe"></iframe>
+</div>
+<script>
+    // modified from same-domain version at www.dyn-web.com/tutorials/iframes/height/
+    function setIframeHeightCO(id, ht) {
+        var ifrm = document.getElementById(id);
+        ifrm.style.visibility = 'hidden';
+        // some IE versions need a bit added or scrollbar appears
+        ifrm.style.height = ht + 4 + "px";
+        ifrm.style.visibility = 'visible';
+    }
+
+
+    // iframed document sends its height using postMessage
+    function handleDocHeightMsg(e) {
+            // parse data
+            var data = JSON.parse(e.data);
+            // check data object
+            if (data['docHeight']) {
+                setIframeHeightCO('iframeComm100', data['docHeight']);
+            } else if (data['href']) {
+                setIframe('iframeComm100', data['href']);
+            }
+    }
+
+    // assign message handler
+    if (window.addEventListener) {
+        window.addEventListener('message', handleDocHeightMsg, false);
+    } else if (window.attachEvent) { // ie8
+        window.attachEvent('onmessage', handleDocHeightMsg);
+    }
+</script>

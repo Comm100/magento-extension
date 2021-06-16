@@ -1,29 +1,40 @@
 # Introduction 
-
-[Comm100 Live Chat](https://www.comm100.com/) for Magento allows brands to provide real-time, accessible and personalized customer engagement when visitors need it most. Via website and mobile app, agents can engage more effectively and efficiently with a choice of powerful tools including co-browsing, auto-translation, and audio and video chat. With Comm100, agents can proactively engage with customers to boost sales and increase customer satisfaction. 
+This module adds [LiveChat](https://www.comm100.com/) to your Magento 2 site.
 
 ### Features
 
-With Comm100 Live Chat for Magento, you can:  
-* Register and connect Comm100 Live Chat account
-* Create integration for data exchange between Magento and Comm100 Live Chat
-* Install Comm100 Live Chat code on the Magento store
-* Send customer information to Comm100 Live Chat
-* Send real-time cart updates to Comm100 Live Chat
-* Share customer order details to Comm100 Live Chat
-* Share Magento store products info to Comm100 Live Chat
-* Open Comm100 control panel directly from Magento configuration
+* Connecting existing LiveChat account,
+* Creating new LiveChat account,
+* Injecting LiveChat JS snippet,
+* Sending customers details to LiveChat,
+* Sending customers cart details to LiveChat,
+* Sending customers order details to LiveChat,
+* Set-up [goal](https://www.livechatinc.com/kb/goals-set-up-and-use/) for order placed event.
 
+
+# Getting Started
+TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+1.	Installation process
+2.	Software dependencies
+3.	Latest releases
+4.	API references
 
 ### Installation
 
 * `composer require comm100/live-chat`
-* `php bin/magento setup:upgrade`
 * `php bin/magento module:enable Comm100_LiveChat`
+* `php bin/magento setup:upgrade`
 * `php bin/magento setup:static-content:deploy`
-* `php bin/magento setup:di:compile`
 * `php bin/magento cache:clean`
 
-[Click here ](https://hosted.comm100.com/kb/10000-2-a239/how-to-install-comm100-live-chat-on-magento-site/)to learn more on how to use the Comm100 Live Chat for Magento. 
+# Build and Test
+TODO: Describe and show how to build your code and run the tests. 
 
 
+# Contribute
+TODO: Explain how other users and developers can contribute to make your code better. 
+
+If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
+- [ASP.NET Core](https://github.com/aspnet/Home)
+- [Visual Studio Code](https://github.com/Microsoft/vscode)
+- [Chakra Core](https://github.com/Microsoft/ChakraCore)

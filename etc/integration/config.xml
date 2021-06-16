@@ -2,7 +2,8 @@
 <integrations>
     <integration name="Comm100 Live Chat">
         <email>support@comm100.com</email>
-        <endpoint_url>https://portal1.comm100.io/magentoapp/V1/endpoint</endpoint_url>
-        <identity_link_url>https://portal1.comm100.io/magentoapp/V1/identity</identity_link_url>
+        <endpoint_url>https://dash11.comm100.io/magentoui/magento/magentoendpoint</endpoint_url>
+        <identity_link_url>https://dash11.comm100.io/magentoui/magento/Identity</identity_link_url>
+		
     </integration>
 </integrations>

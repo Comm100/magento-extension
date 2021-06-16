@@ -73,7 +73,7 @@ abstract class WebhookAbstract implements ObserverInterface
         ) {
             return null;
         }
-        
+
         $eventCode = $this->_getWebhookEvent($observer);
         $eventData = $this->_getWebhookData($observer);
 
@@ -95,15 +95,15 @@ abstract class WebhookAbstract implements ObserverInterface
         // Get Magnento App authorization token from the db.
         $comm100LiveChatFactoryParent = $this->_comm100LiveChatFactory->create();
         $item = $comm100LiveChatFactoryParent->getCollection()->getFirstItem();
-        $data=$item->getData();
+        $data = $item->getData();
         $token = $data['Comm100AccessToken'];
-        $magentoAppBaseUrl=$data["MagentoAppBaseURL"];
-        if($magentoAppBaseUrl == null || $magentoAppBaseUrl ==""){
-            $magentoAppBaseUrl=Constants::MAGENTO_APP_BASE_URL;
+        $magentoAppBaseUrl = $data["MagentoAPIBaseURL"];
+        if ($magentoAppBaseUrl == null || $magentoAppBaseUrl == "") {
+            $magentoAppBaseUrl = Constants::MAGENTO_API_BASE_URL;
         }
-        $webHookUrl=$magentoAppBaseUrl.Constants::WEBHOOK;
+        $webHookUrl = $magentoAppBaseUrl . Constants::WEBHOOK;
         $baseUrl = $data['MagentoBaseURL'];
-        $siteId =$data['Comm100SiteID'];
+        $siteId = $data['Comm100SiteID'];
 
         $bodyJson = $this->_jsonHelper->serialize($body);
         $this->_logger->debug('Comm100 :  JSON Body : ' . $bodyJson . '.');
@@ -115,10 +115,13 @@ abstract class WebhookAbstract implements ObserverInterface
             'SiteId: ' . $siteId,
             'X-Magento-Shop-Domain: ' . $baseUrl,
             'Token: ' . $token,
-            'BaseURL:'.$baseUrl,
+            'BaseURL:' . $baseUrl,
             'X-Magento-Topic: ' . $body['event'],
             'X-Magento-Hmac-Sha256: blank_value'
         ];
+
+        // curl_setopt($this->_curlAdapter, CURLOPT_TIMEOUT, 2000);
+        // curl_setopt($this->_curlAdapter, CURLOPT_NOSIGNAL, 1);
 
         $this->_curlAdapter->write(
             'POST',

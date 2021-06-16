@@ -1,11 +1,19 @@
 {
 	"name": "comm100/live-chat",
 	"type": "magento2-module",
-	"description": "Comm100 Live Chat lets you chat with your Magento store visitors by adding a live chat widget to your Magento Store website",
+	"description": "Create comm 100 live chat and integration",
 	"require": {
-		"php": "~7.0.13|~7.1.0|~7.2.0|~7.3.0|~7.4.0"
+		"php": "~7.0.13|~7.1.0|~7.2.0|~7.3.0|~7.4.0",
+		"magento/module-store": "100.*|101.*",
+		"magento/module-customer": "100.*|101.*|102.*|103.*",
+		"magento/module-checkout": "100.*",
+		"magento/module-sales": "100.*|101.*|102.*|103.*",
+		"magento/module-config": "100.*|101.*",
+		"magento/module-backend": "100.*|101.*|102.*",
+		"magento/framework": "100.*|101.*|102.*|103.*",
+		"magento/module-integration": "100.*|101.*|102.*|103.*"
 	},
-	"version": "1.0.0",
+	"version": "0.0.3",
 	"license": [
 		"OSL-3.0",
 		"AFL-3.0"
@@ -22,6 +30,10 @@
         "0": {
             "type": "composer",
             "url": "https://repo.magento.com/"
+        },
+        "LiveChat": {
+            "type": "path",
+            "url": "/tmp/LiveChat"
         }
     }
 }

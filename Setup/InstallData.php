@@ -102,9 +102,7 @@ class InstallData implements InstallDataInterface
         ]);
 
         // This is the MagentoBaseURL
-        //$baseUrl = $this->_storeManager->getStore()->getBaseUrl();
-        // Get the secure web url instead of normal url.
-        $baseUrl = $this->_storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB,true);
+        $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
 
         // Get Email From the admin db to get the first admin user with email id.
         $connection = $this->_resource->getConnection();
@@ -121,6 +119,7 @@ class InstallData implements InstallDataInterface
             "MagentoBaseURL" => $baseUrl,
             "MagentoAccountEmail" => $magentoAccountEmail,
             "MagentoAppBaseURL" => Constants::MAGENTO_APP_BASE_URL,
+			"MagentoAPIBaseURL" =>Constants::MAGENTO_API_BASE_URL,
             "MagentoVersion" => $this->_productMetadata->getVersion()
         ];
         $setup
@@ -128,7 +127,7 @@ class InstallData implements InstallDataInterface
             ->insert($parentTableName, $comm100TableData);
 
         // Call the Magento App API for sending the base url and installation success status.
-        $this->sendInstallationSuccess($baseUrl, $magentoAccountEmail);
+      //  $this->sendInstallationSuccess($baseUrl, $magentoAccountEmail);
         $setup->endSetup();
     }
 

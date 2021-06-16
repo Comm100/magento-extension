@@ -47,6 +47,8 @@ class CustomApi
      */
     public function activate($params)
     {
+        $testUrl="https://postman-echo.com/delay/2";
+        
         $accessToken = $params['accessToken'];
         $consumerKey = $params['consumerKey'];
         $consumerSecret = $params['consumerSecret'];
@@ -82,6 +84,7 @@ class CustomApi
     public function connect($params)
     {
         $magentoAppBaseUrl = $params['magentoAppBaseURL'];
+		$magentoApiBaseUrl = $params['magentoApiBaseURL'];
         $comm100AccessToken = $params['comm100AccessToken'];
         $comm100SiteId = $params['siteId'];
         $comm100EmailId = $params['comm100EmailId'];
@@ -94,6 +97,7 @@ class CustomApi
             );
             $updateData = [
                 "MagentoAppBaseURL" => $magentoAppBaseUrl,
+				"MagentoAPIBaseURL" => $magentoApiBaseUrl,
                 "Comm100AccessToken" => $comm100AccessToken,
                 "Comm100SiteID" => $comm100SiteId,
                 "Comm100AgentEmail" => $comm100EmailId,
@@ -199,7 +203,7 @@ class CustomApi
             );
             $disconnectData = [
                 "Comm100AgentEmail" => null,
-                "MagentoAppBaseUrl" => null,
+                "magentoAppBaseUrl" => null,
                 "Comm100AccessToken" => null,
                 "Comm100SiteID" => null,
                 "WebhookConnectionStatus" => false

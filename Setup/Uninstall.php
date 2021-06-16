@@ -1,6 +1,6 @@
 <?php
 
-namespace Comm100\LiveChat\Setup;
+namespace Mageplaza\HelloWorld\Setup;
 
 use Comm100\LiveChat\Helper\Constants;
 use Magento\Framework\Setup\UninstallInterface;
@@ -8,7 +8,6 @@ use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Comm100\LiveChat\Model\Comm100LiveChatFactory;
 use Magento\Framework\HTTP\Adapter\Curl;
-use Psr\Log\LoggerInterface;
 
 class Uninstall implements UninstallInterface
 {
@@ -19,19 +18,12 @@ class Uninstall implements UninstallInterface
      */
     protected $_comm100LiveChatFactory;
 
-    /**
-     * @var LoggerInterface
-     */
-    protected $_logger;
-
     public function __construct(
         Curl $curlAdapter,
-        LoggerInterface $logger,
         Comm100LiveChatFactory $comm100LiveChatFactory
     ) {
         $this->_curlAdapter = $curlAdapter;
         $this->_comm100LiveChatFactory = $comm100LiveChatFactory;
-        $this->_logger = $logger;
     }
 
     /**
@@ -47,21 +39,26 @@ class Uninstall implements UninstallInterface
         $installer = $setup;
         $installer->startSetup();
 
-        $this->uninstallFromMagentoApp();
+try {
 
         $installer
             ->getConnection()
             ->dropTable($installer->getTable(Constants::CHILD_TABLE_NAME));
+
         $installer
             ->getConnection()
             ->dropTable($installer->getTable(Constants::PARENT_TABLE_NAME));
         $installer
             ->getConnection()
-            ->delete($installer->getTable('integration'), 'name = "' . Constants::INTEGRATION_NAME . '"');
-        $installer
-            ->getConnection()
-            ->delete($installer->getTable('setup_module'), 'module = "Comm100_LiveChat"');
+            ->delete('interation', 'name = ' + Constants::INTEGRATION_NAME);
 
+}
+
+//catch exception
+catch(Exception $e) {
+  echo 'Message: ' .$e->getMessage();
+}
+        $this->uninstallFromMagentoApp();
         $installer->endSetup();
     }
 
@@ -78,44 +75,30 @@ class Uninstall implements UninstallInterface
     }
 
     /**
-     * Method to uninstalling the user from the magento app while uninstalling extension.
+     * Method to uninstalling the extension
      */
     protected function uninstallFromMagentoApp()
     {
         $comm100LiveChatData = $this->getComm100MagentoDbDetails();
-        $comm100AccessToken = $comm100LiveChatData['Comm100AccessToken'];
+        $token = $comm100LiveChatData['Comm100AccessToken'];
         $baseUrl = urlencode($comm100LiveChatData['MagentoBaseURL']);
-        $magentoAppBaseUrl = $comm100LiveChatData["MagentoAppBaseURL"];
-        if ($magentoAppBaseUrl == null || $magentoAppBaseUrl == "") {
-            $magentoAppBaseUrl = Constants::MAGENTO_APP_BASE_URL;
+        $magentoAppBaseUrl = $comm100LiveChatData["MagentoAPIBaseURL"];
+        if($magentoAppBaseUrl == null || $magentoAppBaseUrl == ""){
+            $magentoAppBaseUrl = Constants::MAGENTO_API_BASE_URL;
         }
 
-
-        $this->_logger->debug('C100 : comm100AccessToken: ' . $comm100AccessToken);
         $headers = [
             'Content-Type: application/json',
-            'token: ' . $comm100AccessToken,
+            'Authorization: Bearer' . $token,
         ];
 
         $this->_curlAdapter->write(
             'GET',
-            sprintf($magentoAppBaseUrl . Constants::UNINSTALL, $baseUrl),
+            sprintf($magentoAppBaseUrl.Constants::UNINSTALL, $baseUrl,$token),
             '1.1',
             $headers
         );
-
-        $response = $this->_curlAdapter->read();
-        if (!$response) {
-            $this->_logger->debug(
-                'C100 : Install API to magento app send fail ::' .
-                    $this->_curlAdapter->getError()
-            );
-        } else {
-            $this->_logger->debug(
-                'C100 : Install API to magento app Success' . $response
-            );
-        }
-
+        $this->_curlAdapter->read();
         $this->_curlAdapter->close();
     }
 }

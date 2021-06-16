@@ -46,6 +46,13 @@ class InstallSchema implements InstallSchemaInterface
                 ['identity' => false, 'nullable' => true, 'primary' => false],
                 'no comments'
             )
+			->addColumn(
+                'MagentoAPIBaseURL',
+                \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+                255,
+                ['identity' => false, 'nullable' => true, 'primary' => false],
+                'no comments'
+            )
             ->addColumn(
                 'MagentoAccountEmail',
                 \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,

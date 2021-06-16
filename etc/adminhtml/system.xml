@@ -9,7 +9,7 @@
 			<label>Settings</label>
 			<tab>Comm100_LiveChat</tab>
 			<resource>Comm100_LiveChat::mymodule</resource>
-			<frontend_model>Comm100\LiveChat\Block\System\Config\ChatButtonConfig</frontend_model>
+			<frontend_model>Comm100\LiveChat\Block\System\Config\LiveChatConfig</frontend_model>
 		</section>
 	</system>
 </config>
