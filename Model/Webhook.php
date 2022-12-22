@@ -29,22 +29,22 @@ class Webhook extends \Magento\Framework\Model\AbstractModel
     protected $_escaper = null;
 
     /**
-     * @param \Magento\Framework\Model\Context              $context
-     * @param \Magento\Framework\Registry                   $registry
-     * @param \Magento\Framework\Escaper                    $escaper
-     * @param \Comm100\LiveChat\Model\Resource\Webhook      $resource
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
-     * @param array                                         $data
+     * @param array $data
      */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Escaper $escaper,
-        \Comm100\LiveChat\Model\Webhook $resource,
+        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->_escaper = $escaper;
+
         parent::__construct(
             $context,
             $registry,
